@@ -1,9 +1,9 @@
-import tkinter as tk
+from ui.ui_main import ui_telaPrincipal
+from ui.ui_adicionarTarefa import ui_janelaAdicionarTarefa
 
-#Menu
-Opcao01 = ("Adicionar Tarefa")
-Opcao02 = ("Listar Tarefa")
-Opcao03 = ("Concluir Tarefa")
-Opcao04 = ("Remover Tarefa")
-#Fim-Menu
 
+def adicionarTarefa():
+    ui_janelaAdicionarTarefa()
+
+janela = ui_telaPrincipal(adicionarTarefa)
+janela.mainloop()
