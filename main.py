@@ -3,11 +3,23 @@ import tkinter as tk
 contador = 1
 lixeira = []
 
+def centralizar(janela, largura=300, altura=200):
+    janela.update_idletasks()
+
+    largura_tela = janela.winfo_screenwidth()
+    altura_tela = janela.winfo_screenheight()
+
+    x = (largura_tela // 2) - (largura // 2)
+    y = (altura_tela // 2) - (altura // 2)
+
+    janela.geometry(f"{largura}x{altura}+{x}+{y}")
+
 def janelaAdicionarTarefa():
     janela = tk.Toplevel()
     janela.title("Adicionar Tarefa")
     janela.geometry("300x150")
     janela.configure(bg="#ffeded")
+    centralizar(janela, 300, 150)
 
     label_titulo = tk.Label(janela, text="Adicionar Tarefa", font=("Arial", 16))
     label_titulo.pack(pady=10)
@@ -50,6 +62,7 @@ def janelaLixeira():
     janela.title("Lixeira")
     janela.geometry("300x335")
     janela.configure(bg="#ffeded")
+    centralizar(janela, 300, 335)
 
     label_titulo = tk.Label(janela, text="Lixeira", font=("Arial", 16))
     label_titulo.pack(pady=10)
@@ -86,6 +99,7 @@ janelaInicial = tk.Tk()
 janelaInicial.title("Gerenciador de Tarefas")
 janelaInicial.geometry("350x460")
 janelaInicial.configure(bg="#ffeded")
+centralizar(janelaInicial, 350, 460)
 
 #-#
 frame_superior = tk.Frame(janelaInicial, bg="#ffeded", width=350, height=50)
