@@ -1,6 +1,7 @@
 import tkinter as tk
 
 contador = 1
+lixeira = []
 
 def janelaAdicionarTarefa():
     janela = tk.Toplevel()
@@ -16,6 +17,12 @@ def janelaAdicionarTarefa():
 
     def SalvarTarefa(tarefa):
         global contador
+        def deletar(tarefa_deletada, texto_tarefa):
+            global lixeira
+            lixeira.append(texto_tarefa)
+            tarefa_deletada.destroy()
+            for r in lixeira:
+                print(r)
 
         if tarefa == "":
             return
@@ -27,7 +34,7 @@ def janelaAdicionarTarefa():
         label_tarefa.pack(side="left", padx=10)
         check = tk.Checkbutton(frame_Tarefa, text="Concluído", bg="white")
         check.pack(side="right")
-        bt_deletar = tk.Button(frame_Tarefa, text="Delete", bg="#febebe", width=6, command=lambda: frame_Tarefa.destroy())
+        bt_deletar = tk.Button(frame_Tarefa, text="Delete", bg="#febebe", width=6, command=lambda: deletar(frame_Tarefa, tarefa))
         bt_deletar.pack(side="right", padx=5)
         frame_Tarefa.pack(pady=5, anchor="w")
         janela.destroy()
@@ -38,9 +45,46 @@ def janelaAdicionarTarefa():
     bt_Cancelar = tk.Button(janela, text="Cancelar", width=280, bg="#febebe", command=janela.destroy)
     bt_Cancelar.pack()
 
+def janelaLixeira():
+    janela = tk.Toplevel()
+    janela.title("Lixeira")
+    janela.geometry("300x335")
+    janela.configure(bg="#ffeded")
+
+    label_titulo = tk.Label(janela, text="Lixeira", font=("Arial", 16))
+    label_titulo.pack(pady=10)
+
+    frame_Tarefas_Deletadas = tk.Frame(janela, bg="white")
+
+    canvas = tk.Canvas(frame_Tarefas_Deletadas, bg="white", width=320, height=250)
+    scrollbar = tk.Scrollbar(frame_Tarefas_Deletadas, orient="vertical", command=canvas.yview)
+
+    bt_voltar = tk.Button(janela, text="Voltar", width=280, bg="#febebe", command=janela.destroy)
+
+    scrollable_frame_tarefas_deletadas = tk.Frame(canvas, bg="white")
+
+    scrollable_frame_tarefas_deletadas.bind(
+        "<Configure>",
+        lambda e: canvas.configure(scrollregion=canvas.bbox("all"))
+    )
+
+    canvas.create_window((0, 0), window=scrollable_frame_tarefas_deletadas, anchor="nw")
+    canvas.configure(yscrollcommand=scrollbar.set)
+
+    canvas.pack(side="left")
+    scrollbar.pack(side="right", fill="y")
+
+    for t in lixeira:
+        label_t = tk.Label(scrollable_frame_tarefas_deletadas, text=t)
+        label_t.pack(pady=5)
+    frame_Tarefas_Deletadas.pack(anchor="w", padx=5)
+    bt_voltar.pack()
+
+    
+
 janelaInicial = tk.Tk()
 janelaInicial.title("Gerenciador de Tarefas")
-janelaInicial.geometry("350x400")
+janelaInicial.geometry("350x460")
 janelaInicial.configure(bg="#ffeded")
 
 #-#
@@ -52,7 +96,7 @@ frame_central = tk.Frame(janelaInicial, bg="white", width=350, height=300)
 frame_central.pack()
 frame_central.pack_propagate(False)
 
-frame_inferior = tk.Frame(janelaInicial, bg="#ffeded", width=350, height=50)
+frame_inferior = tk.Frame(janelaInicial, bg="#ffeded", width=350, height=120)
 frame_inferior.pack()
 frame_inferior.pack_propagate(False)
 #-#
@@ -85,7 +129,13 @@ canvas.pack(side="left")
 scrollbar.pack(side="right", fill="y")
 #-#
 
-bt_Adicionar = tk.Button(frame_inferior, text="Adicionar Tarefa", width=280, height=50, bg="#febebe", command=janelaAdicionarTarefa)
-bt_Adicionar.pack()
+bt_Adicionar = tk.Button(frame_inferior, text="Adicionar Tarefa", width=280,bg="#febebe", command=janelaAdicionarTarefa)
+bt_Adicionar.pack(pady=5)
+
+bt_Lixeira = tk.Button(frame_inferior, text="Lixeira", width=280, bg="#febebe", command=janelaLixeira)
+bt_Lixeira.pack(pady=5)
+
+bt_Fechar = tk.Button(frame_inferior, text="Fechar", width=280, bg="#febebe", command=janelaInicial.destroy)
+bt_Fechar.pack(pady=5)
 
 janelaInicial.mainloop()
