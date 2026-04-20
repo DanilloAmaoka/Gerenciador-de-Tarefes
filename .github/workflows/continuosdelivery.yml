@@ -1,8 +1,8 @@
 name: Continuos Delivery
 on:
-    push:
-        branches:
-            - main
+  push:
+    branches:
+      - main
   
 jobs:
   deliver:
@@ -10,7 +10,7 @@ jobs:
     steps:
       - name: Check out repository code
         uses: actions/checkout@v5
-        
+
       - name: Simulando Continuos Delivery
         uses: actions/upload-artifact@v7
         with:
@@ -24,9 +24,7 @@ jobs:
     needs: deliver
     steps:
       - uses: actions/download-artifact@v8
-          with:
-            name: arquivo-teste.zip
+        with:
+          name: arquivo-teste.zip
       - name: Display structure of downloaded files
-          run: ls -R
- 
-                    
+        run: ls -R
