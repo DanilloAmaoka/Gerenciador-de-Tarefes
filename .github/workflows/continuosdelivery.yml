@@ -3,12 +3,6 @@ on:
   push:
     branches:
       - main
-
-permissions:
-  contents: read
-    push:
-      branches:
-        - main
   
 jobs:
   deliver:
@@ -16,13 +10,13 @@ jobs:
     steps:
       - name: Check out repository code
         uses: actions/checkout@v5
-        
+
       - name: Simulando Continuos Delivery
         uses: actions/upload-artifact@v7
         with:
           name: arquivo-teste.zip
           path: |
-            '**.py'
+            **.py
             README.md
 
   deploy:
@@ -30,9 +24,7 @@ jobs:
     needs: deliver
     steps:
       - uses: actions/download-artifact@v8
-          with:
-            name: arquivo-teste.zip
+        with:
+          name: arquivo-teste.zip
       - name: Display structure of downloaded files
-          run: ls -R
- 
-                    
+        run: ls -R
