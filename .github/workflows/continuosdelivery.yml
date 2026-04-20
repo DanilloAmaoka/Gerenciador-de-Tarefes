@@ -6,6 +6,9 @@ on:
 
 permissions:
   contents: read
+    push:
+      branches:
+        - main
   
 jobs:
   deliver:
@@ -32,3 +35,4 @@ jobs:
       - name: Display structure of downloaded files
           run: ls -R
  
+                    
