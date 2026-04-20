@@ -1,0 +1,21 @@
+name: Continuos Delivery
+on:
+    push:
+        branches:
+            - main
+  
+jobs:
+  deliver:
+    runs-on: ubuntu-latest
+    steps:
+        - name: Check out repository code
+            uses: actions/checkout@v5
+            
+        - name: Simulando Continuos Delivery
+            uses: actions/upload-artifact@v7
+            with:
+                name: arquivo-teste.zip
+                path: |
+                    '**.py'
+                    README.md
+                    
