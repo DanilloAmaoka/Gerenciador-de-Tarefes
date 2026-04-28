@@ -38,11 +38,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
-      - name: Discord Commits
-        uses: tszhong0411/discord-webhook@v1
+      - name: Send Discord Notification
+        uses: bytelabs-software/discord-commit-notifications@v1
         with:
           webhook-url: ${{ secrets.DISCORD_WEBHOOK }}
-          content: |
-            🎉 Novo commit no repositório!
-            📝 Branch: ${{ github.ref }}
-            👤 Autor: ${{ github.actor }}
+
