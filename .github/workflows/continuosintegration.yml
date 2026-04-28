@@ -39,8 +39,10 @@ jobs:
     steps:
       - uses: actions/checkout@v5
       - name: Discord Commits
-        uses: Sniddl/discord-commits@v1.8
+        uses: tszhong0411/discord-webhook@v1
         with:
-          webhook: ${{ secrets.DISCORD_WEBHOOK }}
-          template: "avatar-with-link"
-          include-extras: true
+          webhook-url: ${{ secrets.DISCORD_WEBHOOK }}
+          content: |
+            🎉 Novo commit no repositório!
+            📝 Branch: ${{ github.ref }}
+            👤 Autor: ${{ github.actor }}
