@@ -247,7 +247,7 @@ def Terminal():
         else:
             print("Opção inválida.")
 
-print("1. Interface, 2. Terminal(Docker)")
+print("1. Interface, 2. Terminal(Docker-Para a atividade)")
 escolha = input(": ")
 
 if escolha == "1":
