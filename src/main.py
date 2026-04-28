@@ -270,7 +270,7 @@ def Terminal():
             print("Opção inválida.")
 
 if __name__ == "__main__":
-    print("1. Interface, 2. Terminal(Docker-Para a atividade)")
+    print("1. Interface, 2. Terminal(Docker para a atividade)")
     escolha = input(": ")
 
     if escolha == "1":
