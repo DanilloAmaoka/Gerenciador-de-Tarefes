@@ -2,6 +2,34 @@ contador = 1
 lixeira = []
 tarefas = []
 
+def adicionar_tarefa(tarefas, contador, texto):
+    if texto == "":
+        return tarefas, contador
+
+    tarefas.append({
+        "id": contador,
+        "texto": texto,
+        "concluida": False
+    })
+    return tarefas, contador + 1
+
+
+def concluir_tarefa(tarefas, id):
+    for t in tarefas:
+        if t["id"] == id:
+            t["concluida"] = True
+            return True
+    return False
+
+
+def deletar_tarefa(tarefas, lixeira, id):
+    for t in tarefas:
+        if t["id"] == id:
+            lixeira.append(t["texto"])
+            tarefas.remove(t)
+            return True
+    return False
+
 def Interface():
     import tkinter as tk
     global contador
@@ -177,7 +205,6 @@ def Terminal():
 
         op = input("Escolha: ")
 
-        # ADICIONAR
         if op == "1":
             tarefa = input("Digite a tarefa: ")
 
@@ -192,7 +219,6 @@ def Terminal():
             })
             contador += 1
 
-        # LISTAR
         elif op == "2":
             if not tarefas:
                 print("Nenhuma tarefa.")
@@ -204,7 +230,6 @@ def Terminal():
                 texto = t["texto"][:20] + ("..." if len(t["texto"]) > 20 else "")
                 print(f'{t["id"]} - [{status}] {texto}')
 
-        # CONCLUIR
         elif op == "3":
             try:
                 num = int(input("Número da tarefa: "))
@@ -217,7 +242,6 @@ def Terminal():
             except:
                 print("Entrada inválida.")
 
-        # DELETAR
         elif op == "4":
             try:
                 num = int(input("Número da tarefa: "))
@@ -231,7 +255,6 @@ def Terminal():
             except:
                 print("Entrada inválida.")
 
-        # LIXEIRA
         elif op == "5":
             print("\n=== LIXEIRA ===")
             if not lixeira:
@@ -240,17 +263,17 @@ def Terminal():
                 for i, t in enumerate(lixeira, 1):
                     print(f"{i} - {t}")
 
-        # SAIR
         elif op == "6":
             break
 
         else:
             print("Opção inválida.")
 
-print("1. Interface, 2. Terminal(Docker-Para a atividade)")
-escolha = input(": ")
+if __name__ == "__main__":
+    print("1. Interface, 2. Terminal(Docker-Para a atividade)")
+    escolha = input(": ")
 
-if escolha == "1":
-    Interface()
-if escolha == "2":
-    Terminal()
+    if escolha == "1":
+        Interface()
+    if escolha == "2":
+        Terminal()
