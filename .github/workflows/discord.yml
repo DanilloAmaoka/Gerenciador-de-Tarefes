@@ -1,0 +1,13 @@
+name: Discord
+on:
+  - push
+
+jobs:
+  discord:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - name: Send Discord Notification
+        uses: bytelabs-software/discord-commit-notifications@v1
+        with:
+          webhook-url: ${{ secrets.DISCORD_WEBHOOK }}
